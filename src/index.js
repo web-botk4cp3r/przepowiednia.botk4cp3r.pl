@@ -70,9 +70,7 @@ button.addEventListener('click', async function(){
             setTimeout(function(){winner.classList.toggle("winner-picked");},5000);
         }
 });
-copy.addEventListener("click", function(){
-    navigator.clipboard.writeText(winnerMsg);
-});
+
 losAgain.addEventListener("click", function(){
     winner.classList.toggle("winner-picked");
     wymowki.classList.remove("wymowki-done");
