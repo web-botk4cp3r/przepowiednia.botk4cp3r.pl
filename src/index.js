@@ -15,8 +15,8 @@ let listaWymowek = [
     "1v9",
     "supp gap",
     "tiktoczki",
-    "botk4cp3r powinien otrzymać rangę vip na kanale twitch.tv/kaseko",
     "widz ma sprawę wagi światowej",
+    "botk4cp3r powinien otrzymać rangę vip na kanale twitch.tv/kaseko",
     "czas na epala",
     "ktoś na chacie ma bardzo dużego chuja"
 ];
@@ -39,7 +39,7 @@ function losuj(){
     let y=0;
     for(x=0;x<20;x++){
         y=Math.floor(Math.random() * listaWymowekCount);
-        if(x!=18){
+        if(x!=14){
             losersAll[x].innerHTML=listaWymowek[y];
         }
         else{
@@ -70,7 +70,9 @@ button.addEventListener('click', async function(){
             setTimeout(function(){winner.classList.toggle("winner-picked");},5000);
         }
 });
-
+copy.addEventListener("click", function(){
+    navigator.clipboard.writeText(winnerMsg);
+});
 losAgain.addEventListener("click", function(){
     winner.classList.toggle("winner-picked");
     wymowki.classList.remove("wymowki-done");
