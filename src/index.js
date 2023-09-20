@@ -15,8 +15,8 @@ let listaWymowek = [
     "1v9",
     "supp gap",
     "tiktoczki",
-    "widz ma sprawę wagi światowej",
     "botk4cp3r powinien otrzymać rangę vip na kanale twitch.tv/kaseko",
+    "widz ma sprawę wagi światowej",
     "czas na epala",
     "ktoś na chacie ma bardzo dużego chuja"
 ];
