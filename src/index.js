@@ -25,57 +25,65 @@ console.log(listaWymowek.length)
 
 let button = document.querySelector(".gamba-button");
 let wymowki = document.querySelector(".wymowki");
-let winner= document.querySelector(".winner");
+let winner = document.querySelector(".winner");
 let losAgain = document.querySelector(".los-next");
 let cooldown = 0;
+let animating = false;
 let listaWymowekCount = listaWymowek.length;
-let winnerMsg="";
-let result = document.querySelector("#wymowka");
-let losersAll=document.querySelectorAll(".gamba-el");
+let losersAll = document.querySelectorAll(".gamba-el");
 let copy = document.querySelector(".los-copy");
 
-function losuj(){
+function losuj() {
+    if (animating) return;
+    animating = true;
+
     let x;
-    let y=0;
-    for(x=0;x<20;x++){
-        y=Math.floor(Math.random() * listaWymowekCount);
-        if(x!=14){
-            losersAll[x].innerHTML=listaWymowek[y];
+    for (x = 0; x < 20; x++) {
+        let y = Math.floor(Math.random() * listaWymowekCount);
+        if (x !== 14) {
+            losersAll[x].innerHTML = listaWymowek[y];
         }
-        else{
-            losersAll[x].innerHTML=listaWymowek[y];
-            winnerMsg=listaWymowek[y];
-        }
-        //if(y==54){console.log(y);};
     }
-    result.innerHTML=winnerMsg;
+
+    setTimeout(function () {
+        animating = false;
+    }, 5000);
 }
+
 losuj();
 
-button.addEventListener('click',  async function(){
+button.addEventListener('click', function () {
     button.classList.toggle("gamba-button-click");
-    setTimeout(function(){
-        button.classList.toggle("gamba-button-click");
-    },200);
-});
-function StartCooldown(){
-    console.log("nie tak szybko kurwa...");
-    setTimeout(function(){cooldown=0},6000);
-}
-button.addEventListener('click', async function(){
-        if(cooldown === 0){
-            wymowki.classList.toggle("wymowki-done");
-            cooldown = 1; 
-            StartCooldown();
-            setTimeout(function(){winner.classList.toggle("winner-picked");},5000);
-        }
-});
-copy.addEventListener("click", function(){
-    navigator.clipboard.writeText(winnerMsg);
-});
-losAgain.addEventListener("click", function(){
-    winner.classList.toggle("winner-picked");
-    wymowki.classList.remove("wymowki-done");
-    setTimeout(function(){losuj();},250)
+    const buttonsToRemove = document.querySelectorAll('.gamba-button, .gamba-button-3d');
     
+    buttonsToRemove.forEach(function (button) {
+        button.remove();
+    });
+    setTimeout(function () {
+        button.classList.toggle("gamba-button-click");
+    }, 200);
+});
+
+function StartCooldown() {
+    console.log("nie tak szybko kurwa...");
+    setTimeout(function () {
+        cooldown = 0;
+    }, 6000);
+}
+
+button.addEventListener('click', function () {
+    if (cooldown === 0) {
+        wymowki.classList.toggle("wymowki-done");
+        cooldown = 1;
+        StartCooldown();
+        losuj();
+    }
+});
+
+losAgain.addEventListener("click", function () {
+    if (!animating) {
+        winner.classList.toggle("winner-picked");
+        wymowki.classList.remove("wymowki-done");
+        losuj();
+    }
 });
